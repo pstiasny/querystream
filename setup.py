@@ -3,7 +3,7 @@ from os.path import join, dirname
 
 setuptools.setup(
     name="querystream",
-    version="0.0.1",
+    version="0.0.2",
     py_modules=["querystream"],
     author="Paweł Stiasny",
     author_email="pawelstiasny@gmail.com",

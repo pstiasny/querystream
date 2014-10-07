@@ -184,3 +184,7 @@ def test_order_by():
     assert list(qs.order_by('number')) == [o1, o2, o3]
     assert list(qs.order_by('-number')) == [o3, o2, o1]
 
+
+def test_first():
+    assert QueryStream((1,2,3)).first() == 1
+    assert QueryStream.none().first() is None

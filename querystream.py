@@ -40,6 +40,16 @@ class QueryStream(object):
             key_fun = lambda obj: _select_attr(obj, selector)
         return QueryStream(sorted(self.iterable, key=key_fun))
 
+    def first(self):
+        """
+        Returns the head of the iterable or None if the iterable
+        end immediately.
+        """
+        try:
+            return next(iter(self.iterable))
+        except StopIteration:
+            return None
+
     def __iter__(self):
         return iter(self.iterable)
 
