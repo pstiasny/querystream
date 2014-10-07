@@ -35,10 +35,14 @@ class QueryStream(object):
 
     def order_by(self, selector):
         if selector.startswith('-'):
-            key_fun = lambda obj: -_select_attr(obj, selector[1:])
+            cmp_fun = lambda x, y: -cmp(
+                _select_attr(x, selector[1:]),
+                _select_attr(y, selector[1:]))
         else:
-            key_fun = lambda obj: _select_attr(obj, selector)
-        return QueryStream(sorted(self.iterable, key=key_fun))
+            cmp_fun = lambda x, y: cmp(
+                _select_attr(x, selector),
+                _select_attr(y, selector))
+        return QueryStream(sorted(self.iterable, cmp=cmp_fun))
 
     def first(self):
         """

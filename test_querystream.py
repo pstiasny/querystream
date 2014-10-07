@@ -176,13 +176,13 @@ def test_all():
 
 
 def test_order_by():
-    o1 = mommy.prepare(MainModel, number=120)
-    o2 = mommy.prepare(MainModel, number=121)
-    o3 = mommy.prepare(MainModel, number=122)
+    o1 = mommy.prepare(MainModel, name='a')
+    o2 = mommy.prepare(MainModel, name='b')
+    o3 = mommy.prepare(MainModel, name='c')
     qs = QueryStream((o2, o1, o3))
 
-    assert list(qs.order_by('number')) == [o1, o2, o3]
-    assert list(qs.order_by('-number')) == [o3, o2, o1]
+    assert list(qs.order_by('name')) == [o1, o2, o3]
+    assert list(qs.order_by('-name')) == [o3, o2, o1]
 
 
 def test_first():
