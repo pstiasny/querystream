@@ -3,6 +3,9 @@ from functools import partial
 from operator import and_
 
 
+__version__ = '0.0.3'
+
+
 class QueryStream(object):
     def __init__(self, iterable):
         self.iterable = iterable

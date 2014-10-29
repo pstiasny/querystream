@@ -1,3 +1,5 @@
+# encoding: utf8
+
 import setuptools
 from os.path import join, dirname
 
@@ -5,7 +7,7 @@ setuptools.setup(
     name="querystream",
     version="0.0.3",
     py_modules=["querystream"],
-    author="Paweł Stiasny",
+    author=u"Paweł Stiasny",
     author_email="pawelstiasny@gmail.com",
     url="http://github.com/pstiasny/querystream",
     license="MIT",
