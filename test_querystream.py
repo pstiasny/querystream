@@ -1,6 +1,14 @@
 from django.conf import settings
 settings.configure()
 
+# required since Django 1.7
+try:
+    from django import setup as django_setup
+except ImportError:
+    pass
+else:
+    django_setup()
+
 from itertools import cycle
 import pytest
 from model_mommy import mommy
@@ -186,5 +194,15 @@ def test_order_by():
 
 
 def test_first():
-    assert QueryStream((1,2,3)).first() == 1
+    assert QueryStream((1, 2, 3)).first() == 1
     assert QueryStream.none().first() is None
+
+
+def test_repr():
+    qs = QueryStream([1, 2, 3])
+
+    assert repr(qs) == 'QueryStream([1, 2, 3])'
+    assert str(qs) == 'QueryStream([1, 2, 3])'
+    assert unicode(qs) == 'QueryStream([1, 2, 3])'
+
+    assert repr(qs.filter(Q(lambda x: x > 2)).all()) == 'QueryStream([3])'

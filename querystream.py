@@ -10,6 +10,18 @@ class QueryStream(object):
     def __init__(self, iterable):
         self.iterable = iterable
 
+    def __iter__(self):
+        return iter(self.iterable)
+
+    def __getslice__(self, i, j):
+        return QueryStream(islice(self.iterable, i, j))
+
+    def __or__(self, other):
+        return QueryStream(chain(self.iterable, other.iterable))
+
+    def __repr__(self):
+        return 'QueryStream(%r)' % self.iterable
+
     def all(self):
         """
         Creates a concrete intermediate representation of
@@ -50,21 +62,12 @@ class QueryStream(object):
     def first(self):
         """
         Returns the head of the iterable or None if the iterable
-        end immediately.
+        ends immediately.
         """
         try:
             return next(iter(self.iterable))
         except StopIteration:
             return None
-
-    def __iter__(self):
-        return iter(self.iterable)
-
-    def __getslice__(self, i, j):
-        return QueryStream(islice(self.iterable, i, j))
-
-    def __or__(self, other):
-        return QueryStream(chain(self.iterable, other.iterable))
 
     @staticmethod
     def none():
@@ -122,4 +125,3 @@ def _select_attr(obj, selector):
     """
     split_selector = selector.split('__')
     return reduce(getattr, split_selector, obj)
-
