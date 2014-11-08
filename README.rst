@@ -36,6 +36,13 @@ Running tests
     py.test
 
 
+License
+=======
+
+QueryStream is licensed under the MIT license.  See the LICENSE
+file for details.
+
+
 Changes
 =======
 
